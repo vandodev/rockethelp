@@ -4,6 +4,7 @@ import { Envelope, Key } from "phosphor-react-native";
 
 import Logo from "../assets/logo_primary.svg";
 import { Input } from "../components/Input";
+import { Button } from "../components/Button";
 
 export function SignIn() {
   const { colors } = useTheme();
@@ -28,6 +29,8 @@ export function SignIn() {
         InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}
         secureTextEntry
       />
+
+      <Button title="Entrar" w="full" />
     </VStack>
   );
 }
