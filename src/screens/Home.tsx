@@ -24,42 +24,42 @@ export function Home() {
     "open"
   );
   const [orders, setOrders] = useState<OrderProps[]>([
-    // {
-    //   id: "1",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
-    // {
-    //   id: "2",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
-    // {
-    //   id: "3",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
-    // {
-    //   id: "4",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
-    // {
-    //   id: "5",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
-    // {
-    //   id: "6",
-    //   patrimony: "123456",
-    //   when: "18/07/2022 As 10:00",
-    //   status: "closed",
-    // },
+    {
+      id: "1",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
+    {
+      id: "2",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
+    {
+      id: "3",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
+    {
+      id: "4",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
+    {
+      id: "5",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
+    {
+      id: "6",
+      patrimony: "123456",
+      when: "18/07/2022 As 10:00",
+      status: "closed",
+    },
   ]);
 
   const navigation = useNavigation();
@@ -67,6 +67,10 @@ export function Home() {
 
   function handleNewOrder() {
     navigation.navigate("new");
+  }
+
+  function handleOpenDetails(orderId: string) {
+    navigation.navigate("details", { orderId });
   }
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -91,8 +95,8 @@ export function Home() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading color="gray.100">Meus chamados</Heading>
-          <Text color="gray.200">1</Text>
+          <Heading color="gray.100">Solicitações</Heading>
+          <Text color="gray.200">{orders.length}</Text>
         </HStack>
 
         <HStack space={3} mb={8}>
@@ -112,7 +116,9 @@ export function Home() {
         <FlatList
           data={orders}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (
