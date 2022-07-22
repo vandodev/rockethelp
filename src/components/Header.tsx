@@ -5,6 +5,8 @@ import {
   useTheme,
   StyledProps,
 } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+
 import { CaretLeft } from "phosphor-react-native";
 type Props = StyledProps & {
   title: string;

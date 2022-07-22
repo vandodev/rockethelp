@@ -9,6 +9,8 @@ import {
   FlatList,
   Center,
 } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+
 import { SignOut } from "phosphor-react-native";
 import { ChatTeardropText } from "phosphor-react-native";
 import Logo from "../assets/logo_secondary.svg";
@@ -59,7 +61,13 @@ export function Home() {
     //   status: "closed",
     // },
   ]);
+
+  const navigation = useNavigation();
   const { colors } = useTheme();
+
+  function handleNewOrder() {
+    navigation.navigate("new");
+  }
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HStack
@@ -118,7 +126,7 @@ export function Home() {
             </Center>
           )}
         />
-        <Button title="Nova solicitação" />
+        <Button title="Nova solicitação" onPress={handleNewOrder} />
       </VStack>
     </VStack>
   );
