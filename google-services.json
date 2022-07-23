@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119775729585",
+    "project_id": "rockethelp-34428",
+    "storage_bucket": "rockethelp-34428.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119775729585:android:f1bc6fa9305c2aa853cf90",
+        "android_client_info": {
+          "package_name": "com.evandroapp.rockethelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119775729585-vstl907f4qh22cgp8889mdib5bk7eptm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGhPdXU8jfup9BLWodT2lU03NVNEAkQgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119775729585-vstl907f4qh22cgp8889mdib5bk7eptm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
