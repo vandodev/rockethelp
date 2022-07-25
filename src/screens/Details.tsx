@@ -1,4 +1,6 @@
+import { Alert } from "react-native";
 import { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { VStack, Text, HStack, useTheme, ScrollView, Box } from "native-base";
 import {
   CircleWavyCheck,
@@ -8,8 +10,8 @@ import {
 } from "phosphor-react-native";
 import firestore from "@react-native-firebase/firestore";
 import { OrderFirestoreDTO } from "../DTOs/OrderFirestoreDTO";
-import { useRoute } from "@react-navigation/native";
 
+import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
 import { OrderProps } from "../components/Order";
@@ -28,11 +30,39 @@ type OrderDetails = OrderProps & {
 };
 
 export function Details() {
+  const [solution, setSolution] = useState("");
   const [order, setOrder] = useState<OrderDetails>({} as OrderDetails);
   const [isLoading, setIsLoading] = useState(true);
+  const navigation = useNavigation();
   const route = useRoute();
   const { orderId } = route.params as RouteParams;
   const { colors } = useTheme();
+
+  function handleOrderClose() {
+    if (!solution) {
+      return Alert.alert(
+        "Solicitação",
+        "Informa a solução para encerrar a solicitação"
+      );
+    }
+
+    firestore()
+      .collection<OrderFirestoreDTO>("orders")
+      .doc(orderId)
+      .update({
+        status: "closed",
+        solution,
+        closed_at: firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        Alert.alert("Solicitação", "Solicitação encerrada.");
+        navigation.goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Solicitação", "Não foi possível encerrar a solicitação");
+      });
+  }
 
   useEffect(() => {
     firestore()
@@ -118,9 +148,28 @@ export function Details() {
           icon={ClipboardText}
           footer={`Registrado em ${order.when}`}
         />
+
+        <CardDetails
+          title="solução"
+          icon={CircleWavyCheck}
+          description={order.solution}
+          footer={order.closed && `Encerrado em ${order.closed}`}
+        >
+          {order.status === "open" && (
+            <Input
+              placeholder="Descrição da solução"
+              onChangeText={setSolution}
+              textAlignVertical="top"
+              multiline
+              h={24}
+            />
+          )}
+        </CardDetails>
       </ScrollView>
 
-      {order.status === "open" && <Button title="Encerrar solicitação" m={5} />}
+      {order.status === "open" && (
+        <Button title="Encerrar solicitação" m={5} onPress={handleOrderClose} />
+      )}
     </VStack>
   );
 }
